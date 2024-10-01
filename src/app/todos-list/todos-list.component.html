@@ -1,29 +1,33 @@
-
 <h4>Blaze To-Do's</h4>
 
 <mat-form-field class="input">
   <mat-label>Enter new To-Do</mat-label>
   <input matInput placeholder="Add To-Do" #input />
-  <button mat-icon-button matSuffix (click)="addToDo(input, input.value)">
+  <button type="button" mat-icon-button matSuffix (click)="addToDo(input, input.value)">
     <mat-icon>add</mat-icon>
   </button>
 </mat-form-field>
 
 <div>
-<mat-button-toggle-group #filter (change)="onFilterChange($event)">
-  <mat-button-toggle value="all">All</mat-button-toggle>
-  <mat-button-toggle value="pending">Active</mat-button-toggle>
-  <mat-button-toggle value="completed">Completed</mat-button-toggle>
+  <mat-button-toggle-group #filter (change)="onFilterChange($event)">
+    <mat-button-toggle value="all">All</mat-button-toggle>
+    <mat-button-toggle value="pending">Active</mat-button-toggle>
+    <mat-button-toggle value="completed">Completed</mat-button-toggle>
   </mat-button-toggle-group>
 </div>
 
 <mat-selection-list class="todo-lsit">
-    @for (todo of store.filteredToDos(); track todo.id; let index = $index) {
-    <mat-list-option (selectedChange)="updateToDo(todo)" [togglePosition]="'before'" [selected]="todo.isCompleted" [value]="todo">
-        {{todo.title}}
-        <button mat-icon-button matSuffix (click)="deleteToDo(todo)">
-          <mat-icon>delete</mat-icon>
-        </button>
-    </mat-list-option>
-}
+  @for (todo of store.filteredToDos(); track todo.id; let index = $index) {
+  <mat-list-option
+    (selectedChange)="updateToDo(todo)"
+    [togglePosition]="'before'"
+    [selected]="todo.isCompleted"
+    [value]="todo"
+  >
+    {{ todo.title }}
+    <button type="button" class="mdc-icon-button material-icons" mat-icon-button matSuffix (click)="deleteToDo(todo)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-list-option>
+  }
 </mat-selection-list>
